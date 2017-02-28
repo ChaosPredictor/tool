@@ -10,7 +10,9 @@ def one():
 	os.system("ssh %s@%s -p %s"% (user, ip, port))
 
 def two():
-	print "22\n"
+	print "\n"
+	os.system("scp -r -P %s %s/. %s@%s:~%s"% (port, fromFolder,user, ip, toFolder))
+
 
 def three():
 	print "3\n"
@@ -25,9 +27,10 @@ options = {
 user = ConfigSectionMap(Config, "Main")['user']
 ip = ConfigSectionMap(Config, "Main")['ip']
 port = ConfigSectionMap(Config, "Main")['port']
+fromFolder = ConfigSectionMap(Config, "Folder")['from']
+toFolder = ConfigSectionMap(Config, "Folder")['to']
 
-
-c = raw_input("1: connect to server\n2:\n")
+c = raw_input("1: connect to server\n2: upload 01\n")
 os.system("clear")
 
 options[c]()
