@@ -14,7 +14,7 @@ def main2():
 	uploadMenu()
 
 def main3():
-	print "3\n"
+	settingsMenu()
 
 def folder1():
 	os.system("scp -r -P %s %s/. %s@%s:~%s"% (port, fromFolder,user, ip, toFolder))
@@ -24,6 +24,12 @@ def folder2():
 
 def folder3():
 	return true
+
+def updateFolderList():
+	t = os.popen("ls -author -S -t -H -LR /home/master/MyWork/freeCodeCamp/01-TributePage/").read()
+	#t = os.system("ls /home/master/MyWork/freeCodeCamp/")
+	print(t)
+	print("update folder list")
 
 mainOptions = {
   '1' : main1,
@@ -37,6 +43,10 @@ uploadOptions = {
 	'3' : folder3,
 }
 
+settingsOptions = {
+	'1' : updateFolderList
+}
+
 user = ConfigSectionMap(Config, "Main")['user']
 ip = ConfigSectionMap(Config, "Main")['ip']
 port = ConfigSectionMap(Config, "Main")['port']
@@ -44,17 +54,20 @@ fromFolder = ConfigSectionMap(Config, "Folder")['from']
 toFolder = ConfigSectionMap(Config, "Folder")['to']
 
 def main():
-	t = raw_input("1: connect to server\n2: upload\n")
-	#os.system("clear")
+	t = raw_input("1: connect to server\n2: upload\n3: setings\n")
+	os.system("clear")
 	mainOptions[t]()
 
 
 def uploadMenu():
-	print("\n")	
 	t = raw_input("1: folder1\n2: folder2\n")
-	os.system("clear")
 	uploadOptions[t]()	
 
+
+def settingsMenu():
+	t = raw_input("1: update folder list\n")
+	settingsOptions[t]()	
+	
 main()
 
 
